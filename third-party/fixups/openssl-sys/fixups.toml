@@ -1,0 +1,9 @@
+cargo_env = true
+cfgs = ['openssl', 'ossl101', 'ossl102', 'ossl110', 'ossl300']
+rustc_flags = ['-lssl', '-lcrypto']
+
+[[buildscript]]
+[buildscript.gen_srcs]
+env.OPENSSL_LIB_DIR = "/usr/lib/x86_64-linux-gnu"
+env.OPENSSL_INCLUDE_DIR = "/usr/include"
+env.OPT_LEVEL = "3"

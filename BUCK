@@ -1,5 +1,9 @@
-genrule(
-    name = "hello_world",
-    out = "out.txt",
-    cmd = "echo BUILT BY BUCK2> $OUT",
+rust_binary(
+    name = "hello",
+    srcs = ["src/main.rs"],
+    deps = [
+        "//third-party:anyhow",
+        "//third-party:reqwest",
+        "//third-party:tokio",
+    ]
 )

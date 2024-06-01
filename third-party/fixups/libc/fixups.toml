@@ -1,0 +1,4 @@
+cfgs = ["libc_align"]
+
+[[buildscript]]
+[buildscript.gen_srcs]
