@@ -459,6 +459,18 @@ cargo.rust_library(
     crate = "chrono_tz",
     crate_root = "chrono-tz-0.8.6.crate/src/lib.rs",
     edition = "2021",
+    env = {
+        "CARGO_MANIFEST_DIR": "chrono-tz-0.8.6.crate",
+        "CARGO_PKG_AUTHORS": "",
+        "CARGO_PKG_DESCRIPTION": "TimeZone implementations for chrono from the IANA database",
+        "CARGO_PKG_NAME": "chrono-tz",
+        "CARGO_PKG_REPOSITORY": "https://github.com/chronotope/chrono-tz",
+        "CARGO_PKG_VERSION": "0.8.6",
+        "CARGO_PKG_VERSION_MAJOR": "0",
+        "CARGO_PKG_VERSION_MINOR": "8",
+        "CARGO_PKG_VERSION_PATCH": "6",
+        "OUT_DIR": "$(location :chrono-tz-0.8.6-build-script-run[out_dir])",
+    },
     features = [
         "default",
         "std",
@@ -467,6 +479,64 @@ cargo.rust_library(
     deps = [
         ":chrono-0.4.38",
         ":phf-0.11.2",
+    ],
+)
+
+cargo.rust_binary(
+    name = "chrono-tz-0.8.6-build-script-build",
+    srcs = [":chrono-tz-0.8.6.crate"],
+    crate = "build_script_build",
+    crate_root = "chrono-tz-0.8.6.crate/build.rs",
+    edition = "2021",
+    env = {
+        "CARGO_MANIFEST_DIR": "chrono-tz-0.8.6.crate",
+        "CARGO_PKG_AUTHORS": "",
+        "CARGO_PKG_DESCRIPTION": "TimeZone implementations for chrono from the IANA database",
+        "CARGO_PKG_NAME": "chrono-tz",
+        "CARGO_PKG_REPOSITORY": "https://github.com/chronotope/chrono-tz",
+        "CARGO_PKG_VERSION": "0.8.6",
+        "CARGO_PKG_VERSION_MAJOR": "0",
+        "CARGO_PKG_VERSION_MINOR": "8",
+        "CARGO_PKG_VERSION_PATCH": "6",
+    },
+    features = [
+        "default",
+        "std",
+    ],
+    visibility = [],
+    deps = [":chrono-tz-build-0.2.1"],
+)
+
+buildscript_run(
+    name = "chrono-tz-0.8.6-build-script-run",
+    package_name = "chrono-tz",
+    buildscript_rule = ":chrono-tz-0.8.6-build-script-build",
+    features = [
+        "default",
+        "std",
+    ],
+    version = "0.8.6",
+)
+
+http_archive(
+    name = "chrono-tz-build-0.2.1.crate",
+    sha256 = "433e39f13c9a060046954e0592a8d0a4bcb1040125cbf91cb8ee58964cfb350f",
+    strip_prefix = "chrono-tz-build-0.2.1",
+    urls = ["https://static.crates.io/crates/chrono-tz-build/0.2.1/download"],
+    visibility = [],
+)
+
+cargo.rust_library(
+    name = "chrono-tz-build-0.2.1",
+    srcs = [":chrono-tz-build-0.2.1.crate"],
+    crate = "chrono_tz_build",
+    crate_root = "chrono-tz-build-0.2.1.crate/src/lib.rs",
+    edition = "2021",
+    visibility = [],
+    deps = [
+        ":parse-zoneinfo-0.3.1",
+        ":phf-0.11.2",
+        ":phf_codegen-0.11.2",
     ],
 )
 
@@ -2502,6 +2572,24 @@ cargo.rust_library(
 )
 
 http_archive(
+    name = "parse-zoneinfo-0.3.1.crate",
+    sha256 = "1f2a05b18d44e2957b88f96ba460715e295bc1d7510468a2f3d3b44535d26c24",
+    strip_prefix = "parse-zoneinfo-0.3.1",
+    urls = ["https://static.crates.io/crates/parse-zoneinfo/0.3.1/download"],
+    visibility = [],
+)
+
+cargo.rust_library(
+    name = "parse-zoneinfo-0.3.1",
+    srcs = [":parse-zoneinfo-0.3.1.crate"],
+    crate = "parse_zoneinfo",
+    crate_root = "parse-zoneinfo-0.3.1.crate/src/lib.rs",
+    edition = "2021",
+    visibility = [],
+    deps = [":regex-1.10.4"],
+)
+
+http_archive(
     name = "percent-encoding-2.3.1.crate",
     sha256 = "e3148f5046208a5d56bcfc03053e3ca6334e51da8dfb19b6cdc8b306fae3283e",
     strip_prefix = "percent-encoding-2.3.1",
@@ -2539,6 +2627,48 @@ cargo.rust_library(
     edition = "2021",
     visibility = [],
     deps = [":phf_shared-0.11.2"],
+)
+
+http_archive(
+    name = "phf_codegen-0.11.2.crate",
+    sha256 = "e8d39688d359e6b34654d328e262234662d16cc0f60ec8dcbe5e718709342a5a",
+    strip_prefix = "phf_codegen-0.11.2",
+    urls = ["https://static.crates.io/crates/phf_codegen/0.11.2/download"],
+    visibility = [],
+)
+
+cargo.rust_library(
+    name = "phf_codegen-0.11.2",
+    srcs = [":phf_codegen-0.11.2.crate"],
+    crate = "phf_codegen",
+    crate_root = "phf_codegen-0.11.2.crate/src/lib.rs",
+    edition = "2021",
+    visibility = [],
+    deps = [
+        ":phf_generator-0.11.2",
+        ":phf_shared-0.11.2",
+    ],
+)
+
+http_archive(
+    name = "phf_generator-0.11.2.crate",
+    sha256 = "48e4cc64c2ad9ebe670cb8fd69dd50ae301650392e81c05f9bfcb2d5bdbc24b0",
+    strip_prefix = "phf_generator-0.11.2",
+    urls = ["https://static.crates.io/crates/phf_generator/0.11.2/download"],
+    visibility = [],
+)
+
+cargo.rust_library(
+    name = "phf_generator-0.11.2",
+    srcs = [":phf_generator-0.11.2.crate"],
+    crate = "phf_generator",
+    crate_root = "phf_generator-0.11.2.crate/src/lib.rs",
+    edition = "2021",
+    visibility = [],
+    deps = [
+        ":phf_shared-0.11.2",
+        ":rand-0.8.5",
+    ],
 )
 
 http_archive(
