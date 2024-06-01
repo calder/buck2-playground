@@ -1,4 +1,4 @@
-cfgs = ["libc_align"]
+cfgs = ["libc_align", "libc_core_cvoid", "libc_priv_mod_use"]
 
 [[buildscript]]
 [buildscript.gen_srcs]

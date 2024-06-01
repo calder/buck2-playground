@@ -1813,7 +1813,11 @@ cargo.rust_library(
         "extra_traits",
         "std",
     ],
-    rustc_flags = ["--cfg=libc_align"],
+    rustc_flags = [
+        "--cfg=libc_align",
+        "--cfg=libc_core_cvoid",
+        "--cfg=libc_priv_mod_use",
+    ],
     visibility = [],
 )
 
@@ -1959,8 +1963,48 @@ cargo.rust_library(
     crate = "lz4_sys",
     crate_root = "lz4-sys-1.9.4.crate/src/lib.rs",
     edition = "2015",
+    env = {
+        "CARGO_MANIFEST_DIR": "lz4-sys-1.9.4.crate",
+        "CARGO_PKG_AUTHORS": "Jens Heyens <jens.heyens@ewetel.net>:Artem V. Navrotskiy <bozaro@buzzsoft.ru>:Patrick Marks <pmarks@gmail.com>",
+        "CARGO_PKG_DESCRIPTION": "Rust LZ4 sys package.",
+        "CARGO_PKG_NAME": "lz4-sys",
+        "CARGO_PKG_REPOSITORY": "https://github.com/10xGenomics/lz4-rs",
+        "CARGO_PKG_VERSION": "1.9.4",
+        "CARGO_PKG_VERSION_MAJOR": "1",
+        "CARGO_PKG_VERSION_MINOR": "9",
+        "CARGO_PKG_VERSION_PATCH": "4",
+        "OUT_DIR": "$(location :lz4-sys-1.9.4-build-script-run[out_dir])",
+    },
     visibility = [],
     deps = [":libc-0.2.155"],
+)
+
+cargo.rust_binary(
+    name = "lz4-sys-1.9.4-build-script-build",
+    srcs = [":lz4-sys-1.9.4.crate"],
+    crate = "build_script_build",
+    crate_root = "lz4-sys-1.9.4.crate/build.rs",
+    edition = "2015",
+    env = {
+        "CARGO_MANIFEST_DIR": "lz4-sys-1.9.4.crate",
+        "CARGO_PKG_AUTHORS": "Jens Heyens <jens.heyens@ewetel.net>:Artem V. Navrotskiy <bozaro@buzzsoft.ru>:Patrick Marks <pmarks@gmail.com>",
+        "CARGO_PKG_DESCRIPTION": "Rust LZ4 sys package.",
+        "CARGO_PKG_NAME": "lz4-sys",
+        "CARGO_PKG_REPOSITORY": "https://github.com/10xGenomics/lz4-rs",
+        "CARGO_PKG_VERSION": "1.9.4",
+        "CARGO_PKG_VERSION_MAJOR": "1",
+        "CARGO_PKG_VERSION_MINOR": "9",
+        "CARGO_PKG_VERSION_PATCH": "4",
+    },
+    visibility = [],
+    deps = [":cc-1.0.98"],
+)
+
+buildscript_run(
+    name = "lz4-sys-1.9.4-build-script-run",
+    package_name = "lz4-sys",
+    buildscript_rule = ":lz4-sys-1.9.4-build-script-build",
+    version = "1.9.4",
 )
 
 http_archive(
@@ -2827,6 +2871,17 @@ cargo.rust_library(
     crate = "polars",
     crate_root = "polars-0.40.0.crate/src/lib.rs",
     edition = "2021",
+    env = {
+        "CARGO_MANIFEST_DIR": "polars-0.40.0.crate",
+        "CARGO_PKG_AUTHORS": "Ritchie Vink <ritchie46@gmail.com>",
+        "CARGO_PKG_DESCRIPTION": "DataFrame library based on Apache Arrow",
+        "CARGO_PKG_NAME": "polars",
+        "CARGO_PKG_REPOSITORY": "https://github.com/pola-rs/polars",
+        "CARGO_PKG_VERSION": "0.40.0",
+        "CARGO_PKG_VERSION_MAJOR": "0",
+        "CARGO_PKG_VERSION_MINOR": "40",
+        "CARGO_PKG_VERSION_PATCH": "0",
+    },
     features = [
         "csv",
         "default",
@@ -2836,7 +2891,9 @@ cargo.rust_library(
         "dtype-duration",
         "dtype-slim",
         "fmt",
+        "lazy",
         "polars-io",
+        "polars-lazy",
         "polars-ops",
         "polars-time",
         "temporal",
@@ -4354,8 +4411,47 @@ cargo.rust_library(
     crate = "rustversion",
     crate_root = "rustversion-1.0.17.crate/src/lib.rs",
     edition = "2018",
+    env = {
+        "CARGO_MANIFEST_DIR": "rustversion-1.0.17.crate",
+        "CARGO_PKG_AUTHORS": "David Tolnay <dtolnay@gmail.com>",
+        "CARGO_PKG_DESCRIPTION": "Conditional compilation according to rustc compiler version",
+        "CARGO_PKG_NAME": "rustversion",
+        "CARGO_PKG_REPOSITORY": "https://github.com/dtolnay/rustversion",
+        "CARGO_PKG_VERSION": "1.0.17",
+        "CARGO_PKG_VERSION_MAJOR": "1",
+        "CARGO_PKG_VERSION_MINOR": "0",
+        "CARGO_PKG_VERSION_PATCH": "17",
+        "OUT_DIR": "$(location :rustversion-1.0.17-build-script-run[out_dir])",
+    },
     proc_macro = True,
     visibility = [],
+)
+
+cargo.rust_binary(
+    name = "rustversion-1.0.17-build-script-build",
+    srcs = [":rustversion-1.0.17.crate"],
+    crate = "build_script_build",
+    crate_root = "rustversion-1.0.17.crate/build/build.rs",
+    edition = "2018",
+    env = {
+        "CARGO_MANIFEST_DIR": "rustversion-1.0.17.crate",
+        "CARGO_PKG_AUTHORS": "David Tolnay <dtolnay@gmail.com>",
+        "CARGO_PKG_DESCRIPTION": "Conditional compilation according to rustc compiler version",
+        "CARGO_PKG_NAME": "rustversion",
+        "CARGO_PKG_REPOSITORY": "https://github.com/dtolnay/rustversion",
+        "CARGO_PKG_VERSION": "1.0.17",
+        "CARGO_PKG_VERSION_MAJOR": "1",
+        "CARGO_PKG_VERSION_MINOR": "0",
+        "CARGO_PKG_VERSION_PATCH": "17",
+    },
+    visibility = [],
+)
+
+buildscript_run(
+    name = "rustversion-1.0.17-build-script-run",
+    package_name = "rustversion",
+    buildscript_rule = ":rustversion-1.0.17-build-script-build",
+    version = "1.0.17",
 )
 
 http_archive(
@@ -5113,7 +5209,46 @@ cargo.rust_library(
     crate = "target_features",
     crate_root = "target-features-0.1.6.crate/src/lib.rs",
     edition = "2021",
+    env = {
+        "CARGO_MANIFEST_DIR": "target-features-0.1.6.crate",
+        "CARGO_PKG_AUTHORS": "Caleb Zulawski <caleb.zulawski@gmail.com>",
+        "CARGO_PKG_DESCRIPTION": "Rust compiler target feature database",
+        "CARGO_PKG_NAME": "target-features",
+        "CARGO_PKG_REPOSITORY": "https://github.com/calebzulawski/target-features",
+        "CARGO_PKG_VERSION": "0.1.6",
+        "CARGO_PKG_VERSION_MAJOR": "0",
+        "CARGO_PKG_VERSION_MINOR": "1",
+        "CARGO_PKG_VERSION_PATCH": "6",
+        "OUT_DIR": "$(location :target-features-0.1.6-build-script-run[out_dir])",
+    },
     visibility = [],
+)
+
+cargo.rust_binary(
+    name = "target-features-0.1.6-build-script-build",
+    srcs = [":target-features-0.1.6.crate"],
+    crate = "build_script_build",
+    crate_root = "target-features-0.1.6.crate/build.rs",
+    edition = "2021",
+    env = {
+        "CARGO_MANIFEST_DIR": "target-features-0.1.6.crate",
+        "CARGO_PKG_AUTHORS": "Caleb Zulawski <caleb.zulawski@gmail.com>",
+        "CARGO_PKG_DESCRIPTION": "Rust compiler target feature database",
+        "CARGO_PKG_NAME": "target-features",
+        "CARGO_PKG_REPOSITORY": "https://github.com/calebzulawski/target-features",
+        "CARGO_PKG_VERSION": "0.1.6",
+        "CARGO_PKG_VERSION_MAJOR": "0",
+        "CARGO_PKG_VERSION_MINOR": "1",
+        "CARGO_PKG_VERSION_PATCH": "6",
+    },
+    visibility = [],
+)
+
+buildscript_run(
+    name = "target-features-0.1.6-build-script-run",
+    package_name = "target-features",
+    buildscript_rule = ":target-features-0.1.6-build-script-build",
+    version = "0.1.6",
 )
 
 http_archive(

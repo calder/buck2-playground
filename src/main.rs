@@ -1,20 +1,18 @@
 use anyhow::Result;
+use polars::prelude::*;
 
 #[tokio::main]
 async fn main() -> Result<()> {
     let ip = reqwest::get("https://api.ipify.org").await?.text().await?;
     println!("Hello from {}", ip);
 
-    use polars::prelude::*;
-
-    let q = LazyCsvReader::new("docs/data/iris.csv")
-        .with_has_header(true)
-        .finish()?
-        .filter(col("sepal_length").gt(lit(5)))
-        .group_by(vec![col("species")])
-        .agg([col("*").sum()]);
-    let df = q.collect()?;
-    println!("{:?}", df);
+    let data = df!(
+        "int" => &[1, 2, 3],
+        "float" => &[4.0, 5.0, 6.0],
+        "string" => &["a", "b", "c"],
+    )
+    .unwrap();
+    println!("{:?}", data);
 
     Ok(())
 }
