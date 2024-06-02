@@ -2,8 +2,8 @@
 
 /home/calder/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc \
   src/main.rs \
-  --crate-name buck2_playground \
-  --crate-type bin \
+  --crate-name=hello \
+  --crate-type=bin \
   --edition=2021 \
   --emit=dep-info,link \
   -C embed-bitcode=no \
