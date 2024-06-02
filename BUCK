@@ -6,5 +6,5 @@ rust_binary(
         "//third-party:polars",
         "//third-party:reqwest",
         "//third-party:tokio",
-    ]
+    ],
 )
