@@ -4,8 +4,8 @@
   buck-out/v2/gen/root/904931f735703749/__hello__/__srcs/src/main.rs \
   --crate-name=hello \
   --crate-type=bin \
-  -Crelocation-model=pic \
   --edition=2021 \
+  -Crelocation-model=pic \
   -Cmetadata=root//:hello \
   --error-format=json \
   --json=diagnostic-rendered-ansi \
