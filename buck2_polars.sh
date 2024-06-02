@@ -1,6 +1,9 @@
 #!/bin/bash -e
 
-buck-out/v2/gen/root/904931f735703749/third-party/__polars-0.40.0__/__srcs/polars-0.40.0.crate/src/lib.rs \
+export CARGO_PKG_VERSION=0.40.0
+
+/home/calder/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rustc \
+  buck-out/v2/gen/root/904931f735703749/third-party/__polars-0.40.0__/__srcs/polars-0.40.0.crate/src/lib.rs \
   --crate-name=polars \
   --crate-type=rlib \
   -Crelocation-model=pic \
@@ -9,21 +12,21 @@ buck-out/v2/gen/root/904931f735703749/third-party/__polars-0.40.0__/__srcs/polar
   -Cprefer-dynamic=no \
   --target=x86_64-unknown-linux-gnu \
   --cap-lints=allow \
-  --cfg=feature="csv" \
-  --cfg=feature="default" \
-  --cfg=feature="docs" \
-  --cfg=feature="dtype-date" \
-  --cfg=feature="dtype-datetime" \
-  --cfg=feature="dtype-duration" \
-  --cfg=feature="dtype-slim" \
-  --cfg=feature="fmt" \
-  --cfg=feature="lazy" \
-  --cfg=feature="polars-io" \
-  --cfg=feature="polars-lazy" \
-  --cfg=feature="polars-ops" \
-  --cfg=feature="polars-time" \
-  --cfg=feature="temporal" \
-  --cfg=feature="zip_with" \
+  --cfg 'feature="csv"' \
+  --cfg 'feature="default"' \
+  --cfg 'feature="docs"' \
+  --cfg 'feature="dtype-date"' \
+  --cfg 'feature="dtype-datetime"' \
+  --cfg 'feature="dtype-duration"' \
+  --cfg 'feature="dtype-slim"' \
+  --cfg 'feature="fmt"' \
+  --cfg 'feature="lazy"' \
+  --cfg 'feature="polars-io"' \
+  --cfg 'feature="polars-lazy"' \
+  --cfg 'feature="polars-ops"' \
+  --cfg 'feature="polars-time"' \
+  --cfg 'feature="temporal"' \
+  --cfg 'feature="zip_with"' \
   --extern=polars_core=buck-out/v2/gen/root/904931f735703749/third-party/__polars-core-0.40.0__/rlib-pic-static_pic-metadata-full/libpolars_core-78c9cd32.rlib \
   --extern=polars_error=buck-out/v2/gen/root/904931f735703749/third-party/__polars-error-0.40.0__/rlib-pic-static_pic-metadata-full/libpolars_error-5c63437d.rlib \
   --extern=polars_io=buck-out/v2/gen/root/904931f735703749/third-party/__polars-io-0.40.0__/rlib-pic-static_pic-metadata-full/libpolars_io-461e4799.rlib \
