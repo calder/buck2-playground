@@ -7,8 +7,6 @@
   --edition=2021 \
   -Crelocation-model=pic \
   -Cmetadata=root//:hello \
-  --error-format=json \
-  --json=diagnostic-rendered-ansi \
   -Cprefer-dynamic=no \
   --target=x86_64-unknown-linux-gnu \
   --extern=anyhow=buck-out/v2/gen/root/904931f735703749/third-party/__anyhow-1.0.86__/rlib-pic-static_pic-link/libanyhow-7dc12526.rlib \

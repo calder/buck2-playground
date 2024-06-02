@@ -5,8 +5,6 @@ src/main.rs \
 --crate-name buck2_playground \
 --crate-type bin \
 --edition=2021 \
---error-format=json \
---json=diagnostic-rendered-ansi,artifacts,future-incompat \
 --emit=dep-info,link \
 -C embed-bitcode=no \
 -C debuginfo=2 \
